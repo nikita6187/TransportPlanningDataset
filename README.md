@@ -8,6 +8,42 @@ A graph based strategic transport planning dataset, aimed at creating the next g
 
 
 
+## Issues & Dataset Requests
+
+If you find any issues with the data or want to get a specific version of the data, please raise an issue over at the top.
+
+
+
+## Citing
+
+If you create any new work based on this dataset, and it is only using the data:
+
+```
+@misc{makarov2021,
+    author = {Makarov, Nikita and Narayanan, Santhanakrishnan and Antoniou, Constantinos},
+    institution = {Transportation Systems Engineering},
+    school = {Technical University of Munich},
+    title = {Development of a Deep Learning Surrogate for the Four-Step Transportation Model},
+    year = 2021,
+    url = {https://github.com/nikita68/TransportPlanningDataset}
+}
+
+```
+
+If you also refer to the previous baselines, please also cite:
+
+```
+@mastersthesis{makarov2021,
+    author = {Makarov, Nikita},
+    institution = {Transportation Systems Engineering},
+    school = {Technical University of Munich},
+    title = {Development of a Deep Learning Surrogate for the Four-Step Transportation Model},
+    year = 2021,
+    url = {https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf}
+}
+```
+
+
 
 ## License
 
