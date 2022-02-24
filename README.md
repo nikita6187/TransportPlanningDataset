@@ -18,9 +18,11 @@ This problem is a great task for deep graph neural networks. However, there is n
 
 **Augmented Dataset**
 - Extract random subnetworks from processed OpenStreetMaps and procedural generation for socioeconomic data
+- 6398 training samples, 1600 validation samples, 2000 test samples
 
 **Synthetic Dataset**
 - Procedural generation for both network and socioeconomic data
+- +9995 training samples
 
 
 The dataset ```1_classification_simple``` uses exclusively the augmented dataset. Both ```2_classification_hard``` and ```3_regression``` use the augmented dataset for training, validation and test sets, but also add the synthetic dataset for additional training samples. All problems use identical validation and test datasets, with the targets transformed to the respective task.
@@ -28,7 +30,7 @@ The dataset ```1_classification_simple``` uses exclusively the augmented dataset
 
 ## Data Transformation
 
-TODO
+TODO 
 
 
 ## Issues & Dataset Requests
