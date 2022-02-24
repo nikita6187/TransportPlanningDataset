@@ -47,7 +47,7 @@ class GCN(torch.nn.Module):
 
         self.dropout = dropout
         self.lin_prt_1 = torch.nn.Linear(hidden_channels, hidden_channels)
-        self.lin_prt_2 = torch.nn.Linear(hidden_channels, num_output_features_prt if TRANSPORT_MODE == 1 else num_output_features_put)
+        self.lin_prt_2 = torch.nn.Linear(hidden_channels, num_output_features_prt if TRANSPORT_MODE == 0 else num_output_features_put)
 
     def forward(self, data):
 
