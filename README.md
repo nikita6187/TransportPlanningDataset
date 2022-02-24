@@ -7,7 +7,28 @@ Details of the work as well as results can be found in the thesis ["Development 
 
 
 
+## Problem Setting
 
+The aim of strategic transport planning is to do long term predictions of a given city, based purely on the underlying transport network and socioecenomic data. The socioeconomic data of every household is grouped into so called zones. To solve the problem the model needs to both understand how socioeconomic data creates demand as well as it is applied to the supply side of the network. In practise, this is usually solved by the [4 Step Model](https://www.transitwiki.org/TransitWiki/index.php/Four-step_travel_model), however it has a number of downsides including requiring a large amount of manual work to calibrate and slow prediction speed.
+
+This problem is a great task for deep graph neural networks. However, there is no large public dataset available, so we propose to generate data using in a surrogate model setup, using the 4 Step Model as the baseline. The problem is a transfer learning for GNNs. Within this project, the aim is to create a proof of concept, with all generated cities having between 15 and 80 nodes, and 3-10 zones. Details can be found in [thesis](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf).
+
+
+## Data Generation
+
+**Augmented Dataset**
+- Extract random subnetworks from processed OpenStreetMaps and procedural generation for socioeconomic data
+
+**Synthetic Dataset**
+- Procedural generation for both network and socioeconomic data
+
+
+The dataset ```1_classification_simple``` uses exclusively the augmented dataset. Both ```2_classification_hard``` and ```3_regression``` use the augmented dataset for training, validation and test sets, but also add the synthetic dataset for additional training samples. All problems use identical validation and test datasets, with the targets transformed to the respective task.
+
+
+## Data Transformation
+
+TODO
 
 
 ## Issues & Dataset Requests
