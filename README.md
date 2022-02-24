@@ -1,6 +1,8 @@
-# TransportPlanningDataset
-A graph based strategic transport planning dataset, aimed at creating the next generation of graph neural networks. Based on simulation results of the Four Step Model in PTV Visum.
+# Strategic Transport Planning Dataset
 
+A graph based strategic transport planning dataset, aimed at creating the next generation of deep graph neural networks in transfer learning situations. Based on simulation results of the Four Step Model in PTV Visum.
+
+Details of the work as well as results can be found in the thesis ["Development of a Deep Learning Surrogate for the Four-Step Transportation Model"](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf).
 
 
 
