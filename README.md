@@ -32,6 +32,7 @@ The dataset ```1_classification_simple``` uses exclusively the augmented dataset
 
 - The datasets presented have all input features standardized and filtered as needed
 - As most common GNNs can only do simulatenous predictions for nodes, all edges are transformed into nodes, thus requiring masking during training
+    - Irrelevant node/edge features are then set to 0
 
 All details can be found in the thesis above.
 
