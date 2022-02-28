@@ -1,4 +1,4 @@
-# Hard Classification Task
+# Regression Task
 
 
 Regression on every link in the graph simultaneously. Note, the links have been transformed to nodes to make it a node classification problem.
