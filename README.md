@@ -5,7 +5,35 @@ A graph based strategic transport planning dataset, aimed at creating the next g
 Details of the work as well as results can be found in the thesis ["Development of a Deep Learning Surrogate for the Four-Step Transportation Model"](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf).
 
 
+## State of the Art
 
+| **Dataset**                               | **Model** | **Metric** | **Test Performance** | **Publication**                                                                       |
+|-------------------------------------------|-----------|------------|----------------------|---------------------------------------------------------------------------------------|
+| Classification Simple - Private Transport | GCNII     | Average F1 | 0.87                 | [Makarov, 2021](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf) |
+| Classification Simple - Public Transport  | GCNII     | Average F1 | 0.78                 | [Makarov, 2021](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf) |
+| Classification Hard - Private Transport   | GCNII     | MAE >=10   | 118.5                | [Makarov, 2021](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf) |
+| Classification Hard - Public Transport    | GCNII     | MAE >=10   | 131.8                | [Makarov, 2021](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf) |
+| Regression - Private Transport            | GCNII     | MAE >=10   | 135.4*               | [Makarov, 2021](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf) |
+| Regression - Public Transport             | GCNII     | MAE >=10   | 141.2*               | [Makarov, 2021](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf) |
+
+**If you reach a better performance, please issue a pull request with the new values!**
+
+_* Regression model used only augmented dataset for training data_ 
+
+"MAE >=10" is the mean absolute error, but only applied to test samples where the target has at least 10 units/h.
+This is done as the lower values can be predicted accurately and are less interesting for the domain. An implementation can
+be found in the examples and details in the thesis above.
+
+
+## Dataset Overview
+
+| Dataset                 | Training Samples | Validation Samples | Test Samples | Task                        | Primary Metric | Graph Sizes            | Private Transport | Public Transport | Input & Output Transformed |
+|-------------------------|------------------|--------------------|--------------|-----------------------------|----------------|------------------------|-------------------|------------------|----------------------------|
+| 1_classification_simple | 6398             | 1600*              | 2000*        | Classification - 3 classes  | Average F1     | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
+| 2_classification_hard   | 16393            | 1600*              | 2000*        | Classification - 51 classes | MAE >=10       | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
+| 3_regression            | 16393            | 1600*              | 2000*        | Regression                  | MAE >=10       | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
+
+_* Identical validation and test datasets_
 
 ## Problem Setting
 

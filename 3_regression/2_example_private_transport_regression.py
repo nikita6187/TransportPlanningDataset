@@ -13,31 +13,19 @@ TRANSPORT_MODE = 0   # <--------------------------------------------------------
 
 
 # First load in data
-with bz2.BZ2File("1_data_classification_hard.pbz2", 'rb') as handle:
+with bz2.BZ2File("1_data_regression.pbz2", 'rb') as handle:
     data_dic = pickle.load(handle)
 
-bucket_prt = list(range(25, 500, 25))
-bucket_prt.extend(list(range(500, 1500, 50)))
-bucket_prt.extend(list(range(1500, 2000, 100)))
-bucket_prt.extend(list(range(2000, 4501, 500)))
-
-bucket_put = list(range(25, 300, 25))
-bucket_put.extend(list(range(300, 1000, 50)))
-bucket_put.extend(list(range(1000, 2000, 100)))
-bucket_put.extend(list(range(2000, 4501, 500)))
-
-buckets = bucket_prt if TRANSPORT_MODE == 0 else bucket_put
-buckets.insert(0, 10)
 
 training_loader = DataLoader(data_dic["training"], batch_size=32, shuffle=True)
 validation_loader = DataLoader(data_dic["validation"], batch_size=1, shuffle=False)
 validation_extras = data_dic["validation_extras"]
 test_loader = DataLoader(data_dic["test"], batch_size=1, shuffle=False)
 test_extras = data_dic["test_extras"]
+output_scaling = data_dic["output_scaling_prt"] if TRANSPORT_MODE == 0 else data_dic["output_scaling_put"]
 
 num_input_features = data_dic["training"][0].num_node_features
-num_output_features_prt = torch.max(data_dic["training"][0].y[:, 0]) + 1
-num_output_features_put = torch.max(data_dic["training"][0].y[:, 1]) + 1
+num_output_features = 1
 
 
 # Define GNN - using GCNII as we need larger depths
@@ -61,7 +49,7 @@ class GCN(torch.nn.Module):
 
         self.dropout = dropout
         self.lin_prt_1 = torch.nn.Linear(hidden_channels, hidden_channels)
-        self.lin_prt_2 = torch.nn.Linear(hidden_channels, len(buckets))
+        self.lin_prt_2 = torch.nn.Linear(hidden_channels, num_output_features)
 
     def forward(self, data):
 
@@ -88,15 +76,16 @@ class GCN(torch.nn.Module):
 gcn = GCN().to(device)
 gcn.train()
 
-criterion1 = torch.nn.NLLLoss()
-optimizer = torch.optim.Adam(gcn.parameters(), lr=0.001)
+criterion1 = torch.nn.MSELoss()
+optimizer = torch.optim.Adam(gcn.parameters(), lr=0.005)
 
 # Training
 running_loss = 0.0
-bucket_to_ignore = 0  # Skip the bucket [0, 10) veh/h due to class imbalance, and as we have good predictor for this
+min_pred_val = 10.0  # Skip [0, 10) veh/h due to class imbalance, and as we have good predictor for this
+min_pred_val_processed = torch.tensor(min_pred_val) * 1.0 / output_scaling
 print("Started training")
 
-for epoch in range(3):  # Training loop - would take a couple of hours - for exploring try setting lower value here
+for epoch in range(300):  # Training loop - would take a couple of hours - for exploring try setting lower value here
 
     running_loss = 0.0
     for i, data in enumerate(training_loader, 0):
@@ -108,11 +97,12 @@ for epoch in range(3):  # Training loop - would take a couple of hours - for exp
         outputs_prt = gcn(data.to(device))
 
         # Apply mask, skip bucket [0,10) veh/h
-        mask_low_vals = torch.ne(data.y[:, TRANSPORT_MODE], bucket_to_ignore)
+        mask_low_vals = data.y[:, TRANSPORT_MODE] > min_pred_val_processed
         final_mask = torch.logical_and(mask_low_vals, data.mask.to(torch.bool))
-        outputs_prt = outputs_prt[final_mask, :]  # Masking out nodes so we only predict for edges
-        targets_prt = data.y[:, TRANSPORT_MODE]
-        y = torch.reshape(targets_prt, shape=(-1,))[final_mask]
+
+        # Apply mask
+        outputs_prt = torch.squeeze(outputs_prt[final_mask, :])
+        y = data.y[:, TRANSPORT_MODE][final_mask]
 
         loss_prt = criterion1(outputs_prt, y)
         loss = loss_prt
@@ -129,46 +119,33 @@ for epoch in range(3):  # Training loop - would take a couple of hours - for exp
 # Get validation results
 predicted_outputs_values_weighted = []
 true_outputs_prt_values = []
-
-# Pre-process buckets
-buckets_average = []
-for idx in range(len(buckets)):
-    upper_bound = buckets[idx]
-    lower_bound = 0 if idx == 0 else buckets[idx - 1]
-    buckets_average.append((upper_bound + lower_bound) / 2.0)
-buckets_average = np.asarray(buckets_average)
+gcn.eval()
 
 
 for idx, data in zip(range(len(validation_loader)), validation_loader):  # <------- For test set insert test_loader here
     with torch.no_grad():
-        # Get prediction and targets
-        prediction = gcn(data.to(device)).cpu()
+        pred = gcn(data.to(device))
+
+        pred = pred.cpu()
         data = data.cpu()
         y = data.y[:, TRANSPORT_MODE]
-        data_extras = validation_extras[idx]    # <--------------------------------------- For test set use test_extras here
-        y_cpu = y.numpy().astype(int)
 
-        # Get original target values, hacky
-        for node_idx in range(y_cpu.shape[0]):
-            if node_idx in data_extras["original_nodes_to_edges"]:
-                # Ignore buckets [0, 10) veh/h
-                if y_cpu[node_idx] == bucket_to_ignore:
-                    continue
+        data.mask = data.mask.to(torch.bool)
 
-                u, v = data_extras["original_nodes_to_edges"][node_idx]
-                edge_attr_name = "link_prt_volume" if TRANSPORT_MODE == 0 else "link_put_volume_without_walk"
-                true_outputs_prt_values.append(
-                    data_extras[edge_attr_name][(u, v)])
+        # Apply post processing
+        pred_masked = pred[data.mask]
+        y_masked = y[data.mask]
 
-        # get weighted average predictions, hacky
-        out = prediction.numpy()
-        rows_to_select = y_cpu != bucket_to_ignore
-        out = out[rows_to_select, :]
-        output_distribution = np.exp(out)
-        buckets_average_extra_dim = np.expand_dims(buckets_average, axis=0)
-        output_weighted = np.multiply(output_distribution, buckets_average_extra_dim)
-        output_weighted = np.sum(output_weighted, axis=1, keepdims=False)
-        predicted_outputs_values_weighted.extend(output_weighted.tolist())
+        pred_masked = pred_masked * output_scaling
+        y_masked = y_masked * output_scaling
+
+        # Mask low values out
+        y_low_mask = y_masked >= min_pred_val
+        y_masked = y_masked[y_low_mask]
+        pred_masked = pred_masked[y_low_mask]
+
+        predicted_outputs_values_weighted.extend(pred_masked.numpy()[:, 0])
+        true_outputs_prt_values.extend(y_masked.numpy())
 
 
 # Calculate and report scores
