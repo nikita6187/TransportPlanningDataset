@@ -5,6 +5,10 @@ A graph based strategic transport planning dataset, aimed at creating the next g
 Details of the work as well as results can be found in the thesis ["Development of a Deep Learning Surrogate for the Four-Step Transportation Model"](https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf).
 
 
+<img src="https://raw.githubusercontent.com/nikita68/TransportPlanningDataset/main/1_classification_simple/q1_output_example_11_prediction.PNG" alt="drawing" width="650"/>
+
+_Example of prediction of a cities congestion level, using only socioeconomic and network information as input_
+
 ## State of the Art
 
 | **Dataset**                               | **Model** | **Metric** | **Test Performance** | **Publication**                                                                       |
@@ -63,6 +67,14 @@ The dataset ```1_classification_simple``` uses exclusively the augmented dataset
     - Irrelevant node/edge features are then set to 0
 
 All details can be found in the thesis above.
+
+
+## Open Challenges for GNNs
+
+If you need inspiration for what to focus on to improve GNNs, here are some open challenges with details in the thesis above:
+- Recurrent GNNs - dynamic depth based on size of input graph
+- Overcoming the [bottleneck of GNNs](https://arxiv.org/abs/2006.05205) - seen severely on this dataset
+- Seeing whether we can automatically correct nodes propagating errors
 
 
 ## Issues & Dataset Requests
