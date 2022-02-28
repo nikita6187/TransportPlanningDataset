@@ -31,11 +31,11 @@ be found in the examples and details in the thesis above.
 
 ## Dataset Overview
 
-| Dataset                 | Training Samples | Validation Samples | Test Samples | Task                        | Primary Metric | Graph Sizes            | Private Transport | Public Transport | Input & Output Transformed |
-|-------------------------|------------------|--------------------|--------------|-----------------------------|----------------|------------------------|-------------------|------------------|----------------------------|
-| 1_classification_simple | 6398             | 1600*              | 2000*        | Classification - 3 classes  | Average F1     | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
-| 2_classification_hard   | 16393            | 1600*              | 2000*        | Classification - 51 classes | MAE >=10       | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
-| 3_regression            | 16393            | 1600*              | 2000*        | Regression                  | MAE >=10       | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
+| Dataset                 | Example | Training Samples | Validation Samples | Test Samples | Task                        | Primary Metric | Graph Sizes            | Private Transport | Public Transport | Input & Output Transformed |
+|-------------------------|------------------ |------------------|--------------------|--------------|-----------------------------|----------------|------------------------|-------------------|------------------|----------------------------|
+| [1_classification_simple](https://github.com/nikita68/TransportPlanningDataset/tree/main/1_classification_simple) | [Example](https://github.com/nikita68/TransportPlanningDataset/blob/main/1_classification_simple/2_example_private_transport.py) | 6398             | 1600*              | 2000*        | Classification - 3 classes  | Average F1     | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
+| [2_classification_hard](https://github.com/nikita68/TransportPlanningDataset/tree/main/2_classification_hard)   | [Example](https://github.com/nikita68/TransportPlanningDataset/blob/main/2_classification_hard/2_example_private_transport_classification_hard.py) | 16393            | 1600*              | 2000*        | Classification - 51 classes | MAE >=10       | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
+| [3_regression](https://github.com/nikita68/TransportPlanningDataset/tree/main/3_regression)            | [Example](https://github.com/nikita68/TransportPlanningDataset/blob/main/3_regression/2_example_private_transport_regression.py) | 16393            | 1600*              | 2000*        | Regression                  | MAE >=10       | 15 - 80 original nodes | Yes               | Yes              | Yes                        |
 
 _* Identical validation and test datasets_
 
