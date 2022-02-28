@@ -117,7 +117,7 @@ If you also refer to the previous baselines, please also cite:
 ## License & Acknowledgements
 
 - Parts of the original data © OpenStreetMap contributors
-- A big thank you goes to [Carlos Llorca Garcia](https://www.mos.ed.tum.de/en/tb/team/cl/) for providing the pre-processed data
+- A big thank you goes to [Carlos Llorca Garcia](https://www.mos.ed.tum.de/en/tb/team/cl/) and TUM's MSM institute for providing the pre-processed data
 - This dataset (TransportPlanningDataset) is made available under the Open Database License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in individual contents of the database are licensed under the Database Contents License: http://opendatacommons.org/licenses/dbcl/1.0/
 
 
