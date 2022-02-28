@@ -39,6 +39,8 @@ be found in the examples and details in the thesis above.
 
 _* Identical validation and test datasets_
 
+All of the data is pickled and compressed with pbz2, with the datasets being ready to be used in PyTorch Geometric. Please see the examples on how to use the data.
+
 ## Problem Setting
 
 The aim of strategic transport planning is to do long term predictions of a given city, based purely on the underlying transport network and socioecenomic data. The socioeconomic data of every household is grouped into so called zones. To solve the problem the model needs to both understand how socioeconomic data creates demand as well as it is applied to the supply side of the network. In practise, this is usually solved by the [4 Step Model](https://www.transitwiki.org/TransitWiki/index.php/Four-step_travel_model), however it has a number of downsides including requiring a large amount of manual work to calibrate and slow prediction speed.
