@@ -7,7 +7,7 @@ Details of the work as well as results can be found in the thesis ["Development 
 
 <img src="https://raw.githubusercontent.com/nikita68/TransportPlanningDataset/main/1_classification_simple/q1_output_example_11_prediction.PNG" alt="drawing" width="650"/>
 
-_Example of prediction of a cities congestion level, using only socioeconomic and network information as input_
+_Example of prediction of a city's congestion level, using only socioeconomic and network information as input_
 
 ## State of the Art
 
