@@ -90,6 +90,21 @@ If you find any issues with the data or want to get a specific version of the da
 If you create any new work based on this dataset, and it is only using the data:
 
 ```
+@article{Narayanan.2024,
+    author = {Narayanan, Santhanakrishnan and Makarov, Nikita and Antoniou, Constantinos},
+    title = {Graph neural networks as strategic transport modelling alternative - A proof of concept for a surrogate},
+    year = 2024,
+    journal = {IET Intelligent Transport Systems},
+    volume = {Under revision},
+}
+
+@article{Makarov.2024,
+    author = {Makarov, Nikita and Narayanan, Santhanakrishnan and Antoniou, Constantinos},
+    title = {Graph neural network surrogate for strategic transport planning},
+    year = 2024,
+    journal = {Under review}
+}
+
 @misc{makarov2021,
     author = {Makarov, Nikita and Narayanan, Santhanakrishnan and Antoniou, Constantinos},
     institution = {Transportation Systems Engineering},
