@@ -87,7 +87,7 @@ If you find any issues with the data or want to get a specific version of the da
 
 ## Citing
 
-If you create any new work based on this dataset, and it is only using the data:
+If you create any new work based on this dataset, please cite:
 
 ```
 @article{Narayanan.2024,
@@ -114,11 +114,7 @@ If you create any new work based on this dataset, and it is only using the data:
     url = {https://github.com/nikita68/TransportPlanningDataset}
 }
 
-```
 
-If you also refer to the previous baselines, please also cite:
-
-```
 @mastersthesis{makarov2021,
     author = {Makarov, Nikita},
     institution = {Transportation Systems Engineering},
