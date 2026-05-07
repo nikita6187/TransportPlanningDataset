@@ -91,38 +91,26 @@ If you create any new work based on this dataset, please cite:
 
 ```
 @article{Narayanan.2024,
-    author = {Narayanan, Santhanakrishnan and Makarov, Nikita and Antoniou, Constantinos},
-    title = {Graph neural networks as strategic transport modelling alternative - A proof of concept for a surrogate},
-    year = 2024,
-    journal = {IET Intelligent Transport Systems},
-    volume = {Under revision},
+author = {Narayanan, Santhanakrishnan and Makarov, Nikita and Antoniou, Constantinos},
+title = {Graph neural networks as strategic transport modelling alternative - A proof of concept for a surrogate},
+journal = {IET Intelligent Transport Systems},
+volume = {18},
+number = {11},
+pages = {2059-2077},
+doi = {https://doi.org/10.1049/itr2.12551},
+url = {https://ietresearch.onlinelibrary.wiley.com/doi/abs/10.1049/itr2.12551},
+year = {2024}
 }
 
-@article{Makarov.2024,
-    author = {Makarov, Nikita and Narayanan, Santhanakrishnan and Antoniou, Constantinos},
-    title = {Graph neural network surrogate for strategic transport planning},
-    year = 2024,
-    journal = {Under review}
+@misc{Makarov.2024,
+author = {Makarov,  Nikita and Narayanan,  Santhanakrishnan and Antoniou,  Constantinos},
+title = {Development of a graph neural network surrogate for travel demand modelling},
+publisher = {arXiv},
+year = {2024},
+doi = {10.48550/ARXIV.2408.07726},
+url = {https://arxiv.org/abs/2408.07726},
 }
 
-@misc{makarov2021,
-    author = {Makarov, Nikita and Narayanan, Santhanakrishnan and Antoniou, Constantinos},
-    institution = {Transportation Systems Engineering},
-    school = {Technical University of Munich},
-    title = {Development of a Deep Learning Surrogate for the Four-Step Transportation Model},
-    year = 2021,
-    url = {https://github.com/nikita68/TransportPlanningDataset}
-}
-
-
-@mastersthesis{makarov2021,
-    author = {Makarov, Nikita},
-    institution = {Transportation Systems Engineering},
-    school = {Technical University of Munich},
-    title = {Development of a Deep Learning Surrogate for the Four-Step Transportation Model},
-    year = 2021,
-    url = {https://mediatum.ub.tum.de/doc/1638691/dwz10x0l0w38xdklv9zkrprqs.pdf}
-}
 ```
 
 
